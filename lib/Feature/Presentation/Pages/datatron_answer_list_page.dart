@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesseract/Common/indev_style.dart';
 import 'package:tesseract/Feature/Domain/Entities/datatron_raw_response_entity.dart';
-import 'package:tesseract/Feature/Presentation/Pages/picture_recognition_stage_main.dart';
+import 'package:tesseract/Feature/Presentation/Pages/stages_main/picture_recognition_stage_main.dart';
 import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_cubit.dart';
 import 'package:tesseract/Feature/Presentation/Widgets/datatron_response/datatron_answer_widget.dart';
 
@@ -22,7 +22,7 @@ class DatatronAnswerListPage extends StatelessWidget{
         titleTextStyle: AppInDevStyle.appBarTitleTextStyle,
         backgroundColor: AppInDevStyle.appBarBGColor,
         iconTheme: const IconThemeData(
-          color: AppInDevStyle.floatButtonBGSandBlueColor,
+          color: AppInDevStyle.widgetBGSandBlueColor,
         )
       ),
       backgroundColor: AppInDevStyle.pageBGColorGray,
@@ -64,9 +64,9 @@ class DatatronAnswerListPage extends StatelessWidget{
           child: const Icon(
             Icons.document_scanner_outlined,
             size: 35,
-            color: AppInDevStyle.floatButtonIconWhiteColor,
+            color: AppInDevStyle.widgetIconColorWhite,
           ),
-          backgroundColor: AppInDevStyle.floatButtonBGSandBlueColor,
+          backgroundColor: AppInDevStyle.widgetBGSandBlueColor,
 
         ),
       ),

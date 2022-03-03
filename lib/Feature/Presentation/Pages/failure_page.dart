@@ -26,7 +26,7 @@ class FailurePage extends StatelessWidget{
           child: const Icon(
               Icons.arrow_back_outlined,
               size: 70,
-              color: AppInDevStyle.floatButtonIconWhiteColor,
+              color: AppInDevStyle.widgetIconColorWhite,
           ),
           backgroundColor: Colors.redAccent,
         ),

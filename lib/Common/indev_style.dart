@@ -3,19 +3,23 @@ import 'package:flutter/material.dart';
 
 class AppInDevStyle{
 
-  static const Color floatButtonBGSandBlueColor = Color(0xFF2177B7);
-  static const Color floatButtonIconWhiteColor = Color(0xFFFFFFFF);
+  static const Color pageBGColorGray = Color(0xFFF1F1F0);
+
+  static const Color widgetBGSandBlueColor = Color(0xFF2177B7);
+  static const Color widgetBGColorWhite = Color(0xFFFEFEFE);
+  static const Color widgetIconColorWhite = Color(0xFFFFFFFF);
+  static const Color widgetBGGrayColor = Color(0xFF787878);
+  static const Color widgetBGLightGrayColor = Color(0xFFEDEDED);
+
 
   static const Color fontColorSandBlue = Color(0xFF2177B7);
-  static const Color widgetBGColorWhite = Color(0xFFFEFEFE);
-  static const Color pageBGColorGray = Color(0xFFF1F1F0);
   static const Color fontColorLightGray = Color(0xFF5E5E5E);
   static const Color fontColorGray = Color(0xFF5B5B5B);
   static const Color fontColorDarkGray = Color(0xFF333333);
   static const Color fontColorBlack = Color(0xFF000000);
+  static const Color fontColorWhite = Color(0xFFFFFFFF);
   static const Color fontPageTitleColorGray = Color(0xFF5D5B59);
 
-  static const Color botNavBarColorGray = Color(0xFF787878);
 
   static const Color appBarBGColor = Color(0xFFFFFFFF);
 

@@ -8,7 +8,7 @@ import 'package:tesseract/Feature/Presentation/GettingDatatronResponse_cubit/get
 import 'package:tesseract/Feature/Presentation/Pages/failure_page.dart';
 import 'package:tesseract/Feature/Presentation/Pages/loading_page.dart';
 
-import 'datatron_answer_list_page.dart';
+import '../datatron_answer_list_page.dart';
 
 class DatatronResponseMain extends StatelessWidget{
   final String requestQuery;

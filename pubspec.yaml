@@ -74,8 +74,9 @@ flutter:
   assets:
     - assets/
     - assets/tessdata/
-    - assets/images/datatron_answers_images/report.png
-    - assets/images/datatron_answers_images/cube.png
+    - assets/images/datatron_answers_images/
+    - assets/images/icons/
+    #- assets/images/datatron_answers_images/cube.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -15,13 +15,14 @@ abstract class DatatronAnswerWidget extends StatelessWidget{
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: 16,
           height: 16,
-          child: Image.asset(
-            isReport
-                ? "images/datatron_answers_images/report.png"
-                : "images/datatron_answers_images/cube.png",
+          child: Image(
+            image: AssetImage(isReport
+                ? 'assets/images/datatron_answers_images/report.png'
+                : 'assets/images/datatron_answers_images/cube.png'
+            ),
           ),
         ),
         const SizedBox(width: 16),
@@ -134,17 +135,18 @@ class DatatronAnswerReportWidget extends DatatronAnswerWidget{
         alignment: Alignment.topRight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-        children: const [
-          Text(
+        children: [
+          const Text(
             "Перейти к отчёту",
             style: AppInDevStyle.datatronAnswerGoToTextStyle,
           ),
-          Icon(Icons.arrow_right_alt,
+          Image.asset('assets/images/icons/arrow.png',
             color: AppInDevStyle.fontColorSandBlue,
-            size: 14),
+            width: 14,
+          ),
           ]
-        )
-      )
+        ),
+      ),
     );
   }
 

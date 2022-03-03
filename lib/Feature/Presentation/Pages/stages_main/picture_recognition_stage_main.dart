@@ -11,7 +11,7 @@ import 'package:tesseract/Feature/Presentation/Pages/datatron_request_builder_pa
 import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_cubit.dart';
 import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_states.dart';
 
-import 'fragment_selection_and_recognition_page.dart';
+import '../fragment_selection_and_recognition_page.dart';
 
 class PictureRecognitionMain extends StatelessWidget{
 

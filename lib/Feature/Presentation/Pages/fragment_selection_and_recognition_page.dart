@@ -35,11 +35,15 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
   late File _recognizingImg;
 
   var _imgCut = false;
-
   @override
   void initState() {
     super.initState();
-    _camController = CameraController(cameras.first, ResolutionPreset.max, imageFormatGroup: ImageFormatGroup.bgra8888);
+    _camController = CameraController(
+        cameras.first,
+        ResolutionPreset.max,
+        imageFormatGroup: ImageFormatGroup.bgra8888,
+        enableAudio: false
+      );
     _picSelector = PictureSelector();
     _camController.initialize().then((_) {
       if (!mounted) {
@@ -47,6 +51,7 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
       }
       setState(() {});
     });
+
     print("inited");
   }
 
@@ -63,7 +68,7 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
       print("camera controller is not initialized");
       return Container();
     }
-
+    /*
     var childrenWidgets = [
       CameraPreview(_camController),
       Positioned.fill( child: PictureSelectorWidget(_picSelector)),];
@@ -72,18 +77,40 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
         child: Image.file(_recognizingImg)
       ));
     }
+    */
+    var scaleFactor = MediaQuery.of(context).size.height
+        / ((_camController.value.aspectRatio)
+            * MediaQuery.of(context).size.width);
+
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Select fragment"),
+        title: const Text("НАВЕДИТЕ КАМЕРУ НА ТЕКСТ"),
+        titleTextStyle: AppInDevStyle.appBarTitleTextStyle,
         centerTitle: true,
-      ),
-      body: Center(
-        child:
-            Stack(
-              children: childrenWidgets
-            )
+        iconTheme: const IconThemeData(
+          color: AppInDevStyle.widgetBGSandBlueColor,
         ),
+        backgroundColor: AppInDevStyle.appBarBGColor,
+      ),
+      body: Container(
+      color: AppInDevStyle.widgetBGSandBlueColor,
+      child: Transform.scale(
+        ///пока расширение виджета камеры выполняется через прямой скейлинг
+          scale: scaleFactor,
+          child: Center(
+            child: AspectRatio(
+                aspectRatio: 1/_camController.value.aspectRatio,
+                child: CameraPreview(
+                  _camController,
+                  child: Positioned.fill(
+                      child: PictureSelectorWidget(_picSelector, 1/scaleFactor)
+                  ),
+                )
+            ),
+          )
+      )
+    ),
       floatingActionButton: SizedBox(
         width: 70,
         height: 70,
@@ -97,19 +124,17 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
                 //setState(() => {_recognizingImg = file, _imgCut = true}));
             BlocProvider.of<RecognitionCubit>(context).recognizeSelectedImage(RecognizeImageParams(file.path)));
           },
-          child: const Icon(
-            Icons.document_scanner_outlined,
-            size: 35,
-            color: AppInDevStyle.floatButtonBGSandBlueColor,
+          child: Image.asset('assets/images/icons/back_scan_icon.png',
+            color: AppInDevStyle.widgetBGSandBlueColor,
+            height: 35,
           ),
-          backgroundColor: AppInDevStyle.floatButtonIconWhiteColor,
+          backgroundColor: AppInDevStyle.widgetIconColorWhite,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // This trailing comma makes auto-formatting nicer for build methods.,
     );
   }
-  
+
   Future<File> _cutFrameSegment(CameraController camController, PictureSelector picSelector) async
   {
     final pic = await camController.takePicture();
@@ -121,5 +146,4 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
     //return res;
 
   }
-
 }

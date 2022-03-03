@@ -9,14 +9,16 @@ class LoadingPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
+      /*
         appBar: AppBar(
           title: Text(loaderText),
           centerTitle: true,
-        ),
-        body: const Padding(
+        ),*/
+        body:Padding(
           padding: EdgeInsets.all(8.0),
           child: Center(
+
             child: CircularProgressIndicator(),
           ),
         )
@@ -24,3 +26,5 @@ class LoadingPage extends StatelessWidget{
   }
 
 }
+
+

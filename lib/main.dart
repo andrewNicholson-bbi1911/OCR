@@ -6,7 +6,7 @@ import 'package:tesseract/Feature/Presentation/GettingDatatronResponse_cubit/get
 import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_cubit.dart';
 import 'package:tesseract/locator_service.dart' as di;
 import 'package:tesseract/locator_service.dart';
-import 'Feature/Presentation/Pages/picture_recognition_stage_main.dart';
+import 'Feature/Presentation/Pages/stages_main/picture_recognition_stage_main.dart';
 
 
 late List<CameraDescription> cameras;
