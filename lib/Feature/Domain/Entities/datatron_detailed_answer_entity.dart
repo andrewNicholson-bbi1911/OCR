@@ -5,15 +5,15 @@ class DatatronDetailedAnswerEntity {
     try{
       var total = totals![0][0]!;
       if(total > 100000000000){
-        _extraInfo = " млрд ₽";
+        _extraInfo = "  млрд ₽";
         return (total ~/ 1000000000).toString() + "," + //целая часть
             ((total % 1000000000) ~/ 100000000).toString(); //остаток(1 цифра)
       }else if(total > 10000000){
-        _extraInfo = " млн ₽";
+        _extraInfo = "  млн ₽";
         return (total ~/ 1000000).toString() + "," + //целая часть
             ((total % 1000000) ~/ 100000).toString(); //остаток(1 цифра)
       }else {
-        _extraInfo = " ₽";
+        _extraInfo = "  ₽";
         return total.toString().replaceAll(".", ",");
       }
     }catch(e){

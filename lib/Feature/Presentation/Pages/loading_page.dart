@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+import 'package:tesseract/Common/indev_style.dart';
 
 class LoadingPage extends StatelessWidget{
 
@@ -15,13 +17,10 @@ class LoadingPage extends StatelessWidget{
           title: Text(loaderText),
           centerTitle: true,
         ),*/
-        body:Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Center(
+        body: RiveAnimation.asset("assets/animations/loading/loading.riv"),
+        backgroundColor: AppInDevStyle.loadingScreenBGColor,
 
-            child: CircularProgressIndicator(),
-          ),
-        )
+      //colo
     );
   }
 

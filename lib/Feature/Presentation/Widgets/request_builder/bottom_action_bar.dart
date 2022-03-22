@@ -4,6 +4,8 @@ import 'package:tesseract/Common/indev_style.dart';
 import 'package:tesseract/Feature/Presentation/Pages/datatron_request_builder_page.dart';
 import 'package:tesseract/Feature/Presentation/Widgets/request_builder/recognition_words_list.dart';
 
+import 'bottom_action_button.dart';
+
 class RequestBuilderBottomNavigationBar extends StatelessWidget{
 
   final VoidCallback selectAllCallback;
@@ -23,7 +25,7 @@ class RequestBuilderBottomNavigationBar extends StatelessWidget{
       return Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 32),
         child: Container(
-          padding: const EdgeInsets.only(top: 7, bottom: 7, left:25, right:25),
+          padding: const EdgeInsets.only(top: 7, left: 25, right: 25),
             height: 72,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
@@ -31,19 +33,19 @@ class RequestBuilderBottomNavigationBar extends StatelessWidget{
             ),
             child: Row(
               children: [
-                RequestBuilderBottomNavBarButton(
+                RequestBuilderBottomActionButton(
                   iconName: 'back_scan_icon',
-                  text: "сканировать текст",
+                  text: "Сканировать текст",
                   onTapAction: backToScanningCallback,
                 ),
-                RequestBuilderBottomNavBarButton(
+                RequestBuilderBottomActionButton(
                   iconName: 'select_all_icon',
-                  text: "выделить всё",
+                  text: "Выделить всё",
                   onTapAction: selectAllCallback,
                 ),
-                RequestBuilderBottomNavBarButton(
+                RequestBuilderBottomActionButton(
                   iconName: 'deselect_all_icon',
-                  text: "отменить выделение",
+                  text: "Отменить выделение",
                   onTapAction: deselectAllCallback,
                 ),
               ],
@@ -53,21 +55,23 @@ class RequestBuilderBottomNavigationBar extends StatelessWidget{
   }
 }
 
-class RequestBuilderBottomNavBarButton extends StatelessWidget{
+
+/*
+class RequestBuilderBottomActionBarButton extends StatelessWidget{
 
   //final IconData icon;
   final String iconName;
   final String text;
   final void Function() onTapAction;
 
-  RequestBuilderBottomNavBarButton({
+  RequestBuilderBottomActionBarButton({
     required this.iconName,
     required this.text,
     required this.onTapAction,
     Key? key})
       :super(key: key);
 
-  @override
+  //@override
   Widget build(BuildContext context) {
     return  Expanded(
         child: GestureDetector(
@@ -91,6 +95,7 @@ class RequestBuilderBottomNavBarButton extends StatelessWidget{
                     style: AppInDevStyle.bottomNavBarIconTextStyle,
                     softWrap: true,
                     textAlign: TextAlign.center,
+
                   )
                 )
               ],
@@ -98,8 +103,5 @@ class RequestBuilderBottomNavBarButton extends StatelessWidget{
         )
     );
   }
-
-  void _emptyVoid(){
-
-  }
 }
+*/

@@ -16,8 +16,8 @@ abstract class DatatronAnswerWidget extends StatelessWidget{
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 16,
-          height: 16,
+          width: 32,
+          height: 32,
           child: Image(
             image: AssetImage(isReport
                 ? 'assets/images/datatron_answers_images/report.png'
@@ -50,24 +50,26 @@ class DatatronAnswerCubeWidget extends DatatronAnswerWidget{
 
     var totalData = _answerEntity.detailedAnswer;
 
-    return Container(
-      padding: const EdgeInsets.only(left: 16, top:16, right:21, bottom: 16),
+    return
+      Container(
+      padding: const EdgeInsets.only(left: 16, top:16, right:16, bottom: 16),
       decoration: BoxDecoration(
         color: AppInDevStyle.widgetBGColorWhite,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(13),
       ),
       child: Column(
         children: [
+          //да, тут имя и источник поменены местами, что бы всё согласовывалось
+          // с макетами дизайнеров.
+          _nameLine(false, _answerEntity.sourceInfo),
+          const SizedBox(
+            height: 16,
+          ),
           _accentInfo(totalData.realTotal, totalData.extraInfo),
-
           const SizedBox(
-            height: 16,
+            height: 8,
           ),
-          _nameLine(false, _answerEntity.answerName),
-          const SizedBox(
-            height: 16,
-          ),
-          _sourceText(_answerEntity.sourceInfo),
+          _sourceText(_answerEntity.answerName),
         ],
       ),
     );
@@ -113,7 +115,7 @@ class DatatronAnswerReportWidget extends DatatronAnswerWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 16, top:16, right:21, bottom: 16),
+      padding: const EdgeInsets.only(left: 16, top:16, right:16, bottom: 16),
       decoration: BoxDecoration(
         color: AppInDevStyle.widgetBGColorWhite,
         borderRadius: BorderRadius.circular(16),
@@ -137,12 +139,12 @@ class DatatronAnswerReportWidget extends DatatronAnswerWidget{
           mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const Text(
-            "Перейти к отчёту",
+            "Перейти к отчёту ",
             style: AppInDevStyle.datatronAnswerGoToTextStyle,
           ),
           Image.asset('assets/images/icons/arrow.png',
             color: AppInDevStyle.fontColorSandBlue,
-            width: 14,
+            width: 20,
           ),
           ]
         ),

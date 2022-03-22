@@ -54,7 +54,7 @@ class SearchModel extends SearchEntity{
     var rawAnswersModelList = <RawAnswersModel>[];
     if (json['answers'] != null) {
       json['answers'].forEach((v) {
-        rawAnswersModelList!.add(RawAnswersModel.fromJson(v));
+        rawAnswersModelList.add(RawAnswersModel.fromJson(v));
       });
     }
 
@@ -137,7 +137,7 @@ class RawAnswersModel extends RawAnswersEntity{
     var parametersModelList = <ParametersModel>[];
     if (json['parameters'] != null) {
       json['parameters'].forEach((v) {
-        parametersModelList!.add(ParametersModel.fromJson(v));
+        parametersModelList.add(ParametersModel.fromJson(v));
       });
     }
 
@@ -190,7 +190,7 @@ class ParametersModel extends ParametersEntity {
     var valuesModelList = <ValuesModel>[];
     if (json['values'] != null) {
       json['values'].forEach((v) {
-        valuesModelList!.add(ValuesModel.fromJson(v));
+        valuesModelList.add(ValuesModel.fromJson(v));
       });
     }
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesseract/Feature/Presentation/GettingDatatronResponse_cubit/getting_datatron_response_cubit.dart';
 import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_cubit.dart';
@@ -17,13 +18,18 @@ Future<void> main() async{
   await di.init();
   cameras = await availableCameras();
 
-  runApp( FeatureApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp( FeatureApp()));
+
 }
 
 
 class FeatureApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<RecognitionCubit>(create: (context) => sl<RecognitionCubit>()),

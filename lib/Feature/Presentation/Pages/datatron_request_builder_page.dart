@@ -1,13 +1,13 @@
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesseract/Common/indev_style.dart';
 import 'package:tesseract/Core/ForWidgets/request_string_data_builder.dart';
 import 'package:tesseract/Feature/Domain/Entities/recognition_result_entity.dart';
 import 'package:tesseract/Feature/Presentation/Pages/stages_main/datatron_response_stage_main.dart';
 import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_cubit.dart';
-import 'package:tesseract/Feature/Presentation/Widgets/request_builder/bottom_navigation_bar.dart';
+import 'package:tesseract/Feature/Presentation/Widgets/request_builder/bottom_action_bar.dart';
 import 'package:tesseract/Feature/Presentation/Widgets/request_builder/recognition_words_list.dart';
 import 'package:tesseract/Feature/Presentation/Widgets/request_builder/request_builder_field.dart';
 
@@ -43,30 +43,51 @@ class RequestBuilderPage extends StatelessWidget{
       ),
       extendBody: false,
       body: Container(
-        padding: const EdgeInsets.only(left: 16, top: 16, right: 20),
+        padding: const EdgeInsets.only(left: 16, top: 16, right: 20, bottom: 16),
         child: Column(
           children: [
-            const SizedBox(height: 16),
             RequestBuilderField(requestStringDataBuilder: requestStringDataBuilder),
-            const SizedBox(height: 20),
-            recWordListWidget
-          ],
+            const SizedBox(height: 16),
+            /*
+            Flexible(
+                child: Center(
+                child: recWordListWidget,
+              )
+            )
+             */
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: recWordListWidget
+                  )
+                ],
+              ),
+            )
+
+            //const SizedBox(height: 16),
+          ]
         ),
       ),
       backgroundColor: AppInDevStyle.pageBGColorGray,
-      floatingActionButton: SizedBox(
-        width: 70,
-        height: 70,
-        child: FloatingActionButton(
-          onPressed: () {
-            _showResults(context);
-            },
-          backgroundColor: AppInDevStyle.widgetBGSandBlueColor,
-          child: Image.asset('assets/images/icons/search_button.png',
-            color: AppInDevStyle.widgetBGColorWhite,
-            height: 35,
-          ),
-        )
+      floatingActionButton:
+      Padding(
+      padding: const EdgeInsets.only(bottom: 16.0), //поднимаем кнопку чуть выше
+        child: SizedBox(
+          width: 70,
+          height: 70,
+          child: FloatingActionButton(
+            onPressed: () {
+              _showResults(context);
+              },
+            backgroundColor: AppInDevStyle.widgetBGSandBlueColor,
+            child: Image.asset('assets/images/icons/search_button.png',
+              color: AppInDevStyle.widgetBGColorWhite,
+              height: 26,
+            ),
+          )
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: RequestBuilderBottomNavigationBar(

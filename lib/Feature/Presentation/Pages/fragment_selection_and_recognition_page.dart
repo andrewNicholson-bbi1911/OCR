@@ -30,6 +30,9 @@ class ImageSelectionSelectorPage extends StatefulWidget{
 }
 
 class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>{
+
+  static const String STORAGE_REC_IMAGE_PATH = "RecognitionImageStorage";
+
   late CameraController _camController;
   late PictureSelector _picSelector;
   late File _recognizingImg;
@@ -124,9 +127,8 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
                 //setState(() => {_recognizingImg = file, _imgCut = true}));
             BlocProvider.of<RecognitionCubit>(context).recognizeSelectedImage(RecognizeImageParams(file.path)));
           },
-          child: Image.asset('assets/images/icons/back_scan_icon.png',
-            color: AppInDevStyle.widgetBGSandBlueColor,
-            height: 35,
+          child: Image.asset('assets/images/icons/scan_colorised_icon.png',
+            height: 28,
           ),
           backgroundColor: AppInDevStyle.widgetIconColorWhite,
         ),
@@ -139,8 +141,11 @@ class _ImageSelectionSelectorPageState extends State<ImageSelectionSelectorPage>
   {
     final pic = await camController.takePicture();
     final picImg = imageFromSync(pic);
-    final cutImg = cutImage(picImg, picSelector.getPicturedLeftTopPoint(), picSelector.getPicturedRightBotPoint());
-    final res = await saveImage(makeUniqueName("cutImageSegment"), cutImg);
+    final cutImg = cutImage(
+        picImg, picSelector.getPicturedLeftTopPoint(), picSelector.getPicturedRightBotPoint());
+    final res = await saveImage(makeUniqueName("cutImageSegment"), cutImg,
+    destFileExtraDir: STORAGE_REC_IMAGE_PATH);
+    print("\n>> created ${res.path}");
     return res;
     //final res = rotateAndCutImage(picImg, picSelector.getPicturedLeftTopPoint(), picSelector.getPicturedRightBotPoint());
     //return res;

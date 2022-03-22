@@ -28,14 +28,14 @@ class DatatronAnswerListPage extends StatelessWidget{
       backgroundColor: AppInDevStyle.pageBGColorGray,
       extendBody: true,
       body: ListView.separated(
-        padding: const EdgeInsets.only(left:18, top: 18, right:23),
+        padding: const EdgeInsets.only(left:18, top: 16, right:23),
         itemBuilder: (BuildContext context, int index) {
           //предполагается, что список ответов не пуст, в противном случае
           //выведется экран ошибки
           if (index == 0) {
             return _requestMetaData(_responseEntity.sentRequest, _responseEntity.answers.length);
             //return _bolvanka();
-          } else {
+          } else if(index<=_responseEntity.answers.length) {
             var curAnswer = _responseEntity.answers[index - 1];
             //рисуем виджет отёта или куба соответсвенно
             if (curAnswer.isReport) {
@@ -44,7 +44,10 @@ class DatatronAnswerListPage extends StatelessWidget{
             else {
               return DatatronAnswerCubeWidget(curAnswer);
             }
-
+          }else{
+            //бокс, в конце списка что бы последний элемент этого списка не
+            // скрывался за кнопкой при полной прокрутке вниз
+            return const SizedBox(height: 120,);
           }
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -53,7 +56,7 @@ class DatatronAnswerListPage extends StatelessWidget{
             color: Colors.transparent,
           );
         },
-        itemCount: _responseEntity.answers.length + 1,
+        itemCount: _responseEntity.answers.length + 1 + 1,
       ),
 
       floatingActionButton: SizedBox(
@@ -61,10 +64,9 @@ class DatatronAnswerListPage extends StatelessWidget{
         height: 70,
         child: FloatingActionButton(
           onPressed:() => _backToSellectingStage(context),
-          child: const Icon(
-            Icons.document_scanner_outlined,
-            size: 35,
-            color: AppInDevStyle.widgetIconColorWhite,
+          child: Image.asset('assets/images/icons/back_to_scanning_main_icon.png',
+            color: AppInDevStyle.widgetBGColorWhite,
+            height: 36,
           ),
           backgroundColor: AppInDevStyle.widgetBGSandBlueColor,
 
@@ -83,29 +85,43 @@ class DatatronAnswerListPage extends StatelessWidget{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Expanded(
-              child: Text(
-                  "Результаты по запросу:",
-                style: AppInDevStyle.resultMetadataTextStyle,
-                textAlign: TextAlign.start,
+            RichText(
+              textAlign: TextAlign.left,
+              text: TextSpan(
+                  text: "Результаты по запросу: ",
+                  style: AppInDevStyle.resultMetadataQueryStringTextStyle,
+                  //textAlign: TextAlign.start,
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: request,
+                        style: AppInDevStyle.resultMetadataQueryTextStyle
+                    )
+                  ]
               ),
             ),
-            Expanded(
-              child: Text(
-                  "Всего найдено: $answersCount",
-                style: AppInDevStyle.resultMetadataTextStyle,
-                textAlign: TextAlign.end,
-              )
+        const SizedBox(height: 8,),
+        RichText(
+              textAlign: TextAlign.left,
+              text: TextSpan(
+                  text: "Всего найдено: ",
+                  style: AppInDevStyle.resultMetadataCountStringTextStyle,
+                  //textAlign: TextAlign.start,
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: answersCount.toString(),
+                        style: AppInDevStyle.resultMetadataCountTextStyle,
+                    )
+                  ]
+              ),
             )
-            ],
-          ),
-        const SizedBox(height: 8),
-        Text(
-          request,
-          style: AppInDevStyle.resultMetadataRequestTextStyle,
-        ),
+          /*
+            child: Text(
+              "Всего найдено: $answersCount",
+              style: AppInDevStyle.resultMetadataTextStyle,
+              textAlign: TextAlign.left,
+            )
+
+           */
       ],
     );
   }

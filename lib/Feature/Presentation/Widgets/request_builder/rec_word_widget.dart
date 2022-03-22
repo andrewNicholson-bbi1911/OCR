@@ -10,8 +10,11 @@ class RecognizedWordWidget extends StatefulWidget implements iTurnable{
     return connectedRequestStringDataBuilder.isSelected(_wordData);
   }
 
+  String get stringValue {
+    return _wordData.value;
+  }
+
   late final RecognizedWordData _wordData;
-  late final RequestWordData requestWordData;
 
   late VoidCallback _onSelectActionCallback;
   late VoidCallback _onDeselectActionCallback;
@@ -26,7 +29,6 @@ class RecognizedWordWidget extends StatefulWidget implements iTurnable{
       : super(key: key)
   {
     _wordData = RecognizedWordData(value: word);
-    requestWordData = RequestWordData(_wordData);
     connectedRequestStringDataBuilder = connectedReqDataBuilder;
   }
 
@@ -61,8 +63,7 @@ class RecognizedWordWidget extends StatefulWidget implements iTurnable{
 
 class _RecognizedWordWidgetState extends State<RecognizedWordWidget>{
 
-  _RecognizedWordWidgetState() : super(){
-  }
+  _RecognizedWordWidgetState() : super();
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +87,12 @@ class _RecognizedWordWidgetState extends State<RecognizedWordWidget>{
 
         ),
         child: Text(
-          widget.requestWordData.queryValue.toUpperCase(),
+          widget.stringValue.toUpperCase(),
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 16,
             color: isSelected ? AppInDevStyle.fontColorWhite : AppInDevStyle.fontPageTitleColorGray,
             fontWeight: FontWeight.w400,
+            fontFamily: AppInDevStyle.mainFontFamily,
           ),
 
         )

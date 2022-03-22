@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesseract/Common/indev_style.dart';
 import 'package:tesseract/Core/ForWidgets/request_string_data_builder.dart';
-import 'package:tesseract/Feature/Presentation/Recognition_cubit/recognition_cubit.dart';
 import 'package:tesseract/Feature/Presentation/Widgets/request_builder/rec_line_widget.dart';
-import 'package:tesseract/Feature/Presentation/Widgets/request_builder/request_builder_field.dart';
 
 class RecognitionWordsList extends StatelessWidget{
   final List<String> _lines;
@@ -13,7 +10,7 @@ class RecognitionWordsList extends StatelessWidget{
 
   late List<RecognisedTextLine> _lineWidgets = [];
 
-  RecognitionWordsList(this._lines, this.connectedRecStringDataBuilder):super();
+  RecognitionWordsList(this._lines, this.connectedRecStringDataBuilder, {Key? key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +19,25 @@ class RecognitionWordsList extends StatelessWidget{
     for(var line in _lines){
       _lineWidgets.add(RecognisedTextLine(line, connectedRecStringDataBuilder ));
     }
+    List<Widget> buildingWidgets = [];
+    buildingWidgets.addAll(_lineWidgets);
 
+    //что бы при прокрутке не скрывались слова кнопкой поиска
+    buildingWidgets.add(const SizedBox(height: 86,));
     return Container(
+
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(13),
         color: AppInDevStyle.widgetBGColorWhite,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _lineWidgets,
-      ),
+      constraints: const BoxConstraints.expand(),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:
+             buildingWidgets,
+        ),
+      )
     );
 
     return Center(

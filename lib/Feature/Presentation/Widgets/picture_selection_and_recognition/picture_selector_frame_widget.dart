@@ -51,14 +51,18 @@ class _PictureSelectorWidgetState extends State<PictureSelectorWidget>{
 
   void _firstInit(Offset center){
     setState(() {
-      widget.pictureSelector.InitNewSelector(center);
+      widget.pictureSelector.updateSelectorByNewTap(center);
     });
   }
 
   void _updateTouch(Offset touchPosition){
     setState(() {
-      widget.pictureSelector.Update(touchPosition);
+      widget.pictureSelector.update(touchPosition);
     });
+  }
+
+  void _onEditEnd(){
+    print("lt is ${widget.pictureSelector.getLeftTopPoint()}\nrb is ${widget.pictureSelector.getRightBotPoint()}");
   }
 
 }

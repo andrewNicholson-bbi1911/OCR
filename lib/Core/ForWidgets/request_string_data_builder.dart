@@ -8,12 +8,19 @@ class RequestStringDataBuilder{
   final TextEditingController textEditingController;
   String get queryString { return textEditingController.value.text;}
   List<RequestWordData> _selectedWords = [];
+  //List<RecognizedWordData> _selectedRecognizedWords = [];
 
   RequestStringDataBuilder({required this.textEditingController}){
     textEditingController.addListener(_onTextFieldChangedListener);
   }
 
   void addSelectedWord(RecognizedWordData recWordData){
+    /*if(!_selectedRecognizedWords.contains(recWordData)){
+      _selectedRecognizedWords.add(recWordData);
+    }
+    _updateQuery();
+
+     */
     //получаем слово запроса по распознанному, если такового нет, то создаём
     var newRequestWord = _selectedWords.firstWhere((element) => (element.connectedRecWord == recWordData),
       orElse: () => RequestWordData(recWordData, indexInRequestStringDataBuilder: _selectedWords.length)
@@ -29,10 +36,17 @@ class RequestStringDataBuilder{
     if(!_selectedWords.contains(newRequestWord)){
       _selectedWords.add(newRequestWord);
     }
-    _updateQuerry();
+    _updateQuery();
   }
 
   void removeSelectedWord(RecognizedWordData recWordData) {
+    /*
+    if(_selectedRecognizedWords.contains(recWordData)){
+      _selectedRecognizedWords.remove(recWordData);
+    }
+    _updateQuery();
+     */
+
     //аналогично [addSelectedWord], только убираем найденное слоово из списка
     var newRequestWord = _selectedWords.firstWhere((element) =>
     (element.connectedRecWord == recWordData),
@@ -46,7 +60,7 @@ class RequestStringDataBuilder{
 
 
     _updateIndexes();
-    _updateQuerry();
+    _updateQuery();
   }
 
   bool isSelected(RecognizedWordData recWordData)
@@ -55,17 +69,26 @@ class RequestStringDataBuilder{
         orElse: () => RequestWordData(recWordData, indexInRequestStringDataBuilder: _selectedWords.length)
     );
     return _selectedWords.contains(reqWord);
+    //return _selectedRecognizedWords.contains(recWordData);
   }
   
   
-  void _updateQuerry(){
-    var querry = "";
-    for(var word in _selectedWords){
-      querry+=word.queryValue;
-      querry += " ";
+  void _updateQuery(){
+    var query = "";
+
+    /*
+    for(var word in _selectedRecognizedWords){
+      query += word.value + " ";
     }
+     */
+
+    for(var word in _selectedWords){
+      query+=word.queryValue + " ";
+      query += " ";
+    }
+
     textEditingController.value = textEditingController.value.copyWith(
-      text: querry,
+      text: query,
     );
   }
 
@@ -81,11 +104,14 @@ class RequestStringDataBuilder{
     var wordsInField = textEditingController.text.split(" ");
     List<RequestWordData> newWords = []; //новые слова(или изменённые) в поисковой строке
 
+    List<RequestWordData> cloneOfSelectedWords = [];
+    cloneOfSelectedWords.addAll(_selectedWords);
+
     List<RequestWordData> actualWords = [];
 
     //далее ищем эти новые слова и определяем старые, неизменённые
     for(var printedWord in wordsInField) {
-      var containedWord = _selectedWords.firstWhere((element) =>
+      var containedWord = cloneOfSelectedWords.firstWhere((element) =>
       (element.queryValue == printedWord),
           orElse: () =>
               RequestWordData(RecognizedWordData(value: printedWord))
@@ -93,11 +119,16 @@ class RequestStringDataBuilder{
       if(containedWord.queryValue.isNotEmpty) {
         actualWords.add(containedWord);
       }
-      if(containedWord.queryValue.isNotEmpty && !_selectedWords.contains(containedWord)){
+      if(containedWord.queryValue.isNotEmpty && !cloneOfSelectedWords.contains(containedWord)){
         //если слово не пустое и не найдено в ранее добаввленных словах,
         //то это слово считается новым
         newWords.add(containedWord);
       }
+
+      if(cloneOfSelectedWords.contains(containedWord)){
+        cloneOfSelectedWords.remove(containedWord);
+      }
+
     }
     //в результате цикла появляются:
     // все слова, разделённые пробелами(пустые тоже),

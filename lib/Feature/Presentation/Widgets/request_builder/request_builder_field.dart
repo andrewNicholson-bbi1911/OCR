@@ -43,8 +43,8 @@ class _RequestBuilderFieldState extends State<RequestBuilderField>{
     return Container(
       height: 48,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppInDevStyle.widgetBGColorWhite,
+        borderRadius: BorderRadius.circular(10),
+        color: AppInDevStyle.widgetBGGrayTransparentColor,
       ),
       padding: const EdgeInsets.only(left: 24, right:12),
       child: textFromField
